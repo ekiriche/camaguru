@@ -28,6 +28,7 @@
 					<input class="logout" type="submit" name="logout" value="Logout"/>
 				</form>
 				<a href="edit_user.php" class="new_user_link">Edit profile</a>
+				<a href="webcam.php" class="new_user_link">Take a picture</a>
 			</div>
 				<?php
 			}
@@ -56,35 +57,7 @@
 		<?php } ?>
 	</div>
 	<div class="center">
-		<video autoplay="true" id="videoElement"></video>
-		<button onclick="snapshot();">Snap!</button>
-		<canvas id="myCanvas" width="400" height="350"></canvas>
-			<script>
-				var video = document.querySelector("#videoElement");
-
-				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
- 
-				if (navigator.getUserMedia) {       
-    				navigator.getUserMedia({video: true}, handleVideo, videoError);
-				}
- 
-				function handleVideo(stream) {
-				    video.src = window.URL.createObjectURL(stream);
-				}
- 
-				function videoError(e) {
-				    // do something
-				}
-
-				var canvas, ctx;
-
-				function snapshot()
-				{
-					canvas = document.getElementById("myCanvas");
-      				ctx = canvas.getContext('2d');
-      				ctx.drawImage(video, 0,0, canvas.width, canvas.height);
-				}
-			</script>
+		
 	</div>
 	<div class="footer">
 		<div class="footerText">
