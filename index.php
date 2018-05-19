@@ -1,14 +1,7 @@
 <!DOCTYPE html>
-<?php
-//	include "./config/setup.php";
-//
-//	$query = $db->query('SELECT * FROM `users`');
-//	while ($r = $query->fetch())
-//		echo $r['login'], '<br>';
-?>
 <html>
-<title>Web Page Design</title>
 <head>
+	<title>Web Page Design</title>
 	<link rel="stylesheet" type="text/css" href="css/header.css">
 	<link rel="stylesheet" type="text/css" href="css/center.css">
 	<link rel="stylesheet" type="text/css" href="css/footer.css">
@@ -57,7 +50,69 @@
 		<?php } ?>
 	</div>
 	<div class="center">
-		
+		<br>
+			<?php
+				include "config/setup.php";
+				session_start();
+				$limit = 5;
+				$number_of_results = $db->query("SELECT count(*) FROM images")->fetchColumn();
+				$number_of_pages = ceil($number_of_results/$limit);
+				if (!isset($_GET["page"]))
+				{
+					$page = 1;
+				}
+				else
+					$page = $_GET["page"];
+				$this_page_first_result = ($page - 1) * $limit;
+				$sql = "SELECT * FROM images ORDER BY `date` DESC LIMIT " . $this_page_first_result . ',' . $limit;
+				$query = $db->query($sql);
+				while ($r = $query->fetch())
+				{ ?> <div class="post"> <?php
+					echo '<img src="'.$r["image_path"].'"/><br>';
+					echo '<p>' . 'Likes: ' . $r["likes"] . '</p>';
+					$sql2 = "SELECT * FROM comments WHERE `image_id` = " . $r["id"];
+					$query2 = $db->query($sql2);
+					while ($r2 = $query2->fetch())
+					{
+						echo "<p class=" . 'comment_box' . ">" . $r2["login"] . ": " . $r2["comment"] . "</p>";
+					}
+					?>
+					<form action="like_comment.php" method="post">
+						<input type="hidden" name="img" value="<?php echo $r["id"]; ?>" />
+						<input type="text" name="comment" value="" />
+						<input type="submit" name="comment_submit" value="Comment" />
+						<?php
+							$flag = 0;
+							$query2 = $db->query("SELECT * FROM likes");
+							while ($e = $query2->fetch())
+							{
+								if ($_SESSION["loged_in_user"] == "")
+									break ;
+								if ($_SESSION["loged_in_user"] == $e["login"] && $r["id"] == $e["image_id"])
+								{
+									$flag = 1;
+									echo "<input type='submit' name='unlike' value='Unlike' />";
+								}
+							}
+							if ($flag == 0)
+								echo "<input type='submit' name='like' value='Like' />";
+						?>
+					</form>
+					<br>
+					</div>
+					<br>
+				<?php } ?>
+				<div id="pages">
+					<?php
+					$page = 1;
+					while ($page <= $number_of_pages)
+					{
+						echo '<a href="index.php?page=' . $page . '">' . $page . " " . '</a>';
+						$page++;
+					}
+				?>
+			</div>
+			<br>
 	</div>
 	<div class="footer">
 		<div class="footerText">

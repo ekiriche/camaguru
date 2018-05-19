@@ -27,6 +27,8 @@
             echo "<p class=\"error_message\">Password's length must be > 6</p>";
         else if ($_SESSION["register_error"] == "user_exists")
             echo "<p class=\"error_message\">This user already exists</p>";
+        else if ($_SESSION["register_error"] == "confirm")
+            echo "<p class=\"error_message\">Registration is almost over! Check your email for additional info</p>";
 		$_SESSION["register_error"] = "";
 		?>
 		<form class="regForm" action="create_user.php" method="post">

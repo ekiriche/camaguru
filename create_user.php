@@ -15,13 +15,13 @@
 			header("Location: register.php");
 			die();
 		}
-		if (strlen($_POST["username"]) < 4)
+		if (strlen($_POST["username"]) < 4 || strlen($_POST["username"]) > 16)
 		{
 			$_SESSION["register_error"] = "short_username";
 			header("Location: register.php");
 			die();
 		}
-		if (strlen($_POST["password"]) < 6)
+		if (strlen($_POST["password"]) < 6 || strlen($_POST["password"]) > 16)
 		{
 			$_SESSION["register_error"] = "short_password";
 			header("Location: register.php");
@@ -44,16 +44,16 @@
 			"line-length" => 76,
 			"line-break-chars" => "\r\n"
 		);
-		$mail_subject = "mah duuuuuuuuuuude";
+		$mail_subject = "User creation";
 		$header = "Content-type: text/html; charset=".$encoding." \r\n";
-		$header .= "From: webmaster@example.com \r\n";
+		$header .= "From: localhost@omega.com \r\n";
 		$header .= "MIME-Version: 1.0 \r\n";
 		$header .= "Content-Transfer-Encoding: 8bit \r\n";
 		$header .= "Date: ".date("r (T)")." \r\n";
 		$hashed_link = hash("sha256", rand(0, 1000));
 		$header .= iconv_mime_encode("Subject", $mail_subject, $subject_preferences);
 		$mail = $_POST["email"];
-		$mail_message = 'http://localhost:8100/Camigiru/verify.php?email='.$mail.'&hash='.$hashed_link.'';
+		$mail_message = 'http://localhost:8100/verify.php?email='.$mail.'&hash='.$hashed_link.'';
 		mail($_POST["email"], $mail_subject, $mail_message, $header);
 		$hashed_passwd = hash("sha256", $_POST["password"]);
 		$stm = $db->prepare("INSERT INTO users (login, email, password, reg_link) VALUES (?, ?, ?, ?)");

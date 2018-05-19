@@ -1,11 +1,13 @@
 body {
 	background-color: #fefefe;
-	display: flex;
-	flex-direction: column;
+	height: 100%;
 }
 
 .center {
-	margin: auto;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
 }
 
 .regForm {
@@ -37,4 +39,70 @@ body {
     position: absolute;
     font-size: 12px;
     margin-top: 0px;
+}
+.post {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 80%;
+	max-width: 640px;
+	border-style: solid;
+	border-width: 5px;
+	border-radius: 10px;
+	border-color: gray;
+}
+#map {
+	overflow: hidden;
+	position: relative;
+}
+#myCanvas {
+	display: none;
+}
+.drag {
+	position: relative;
+}
+#button_snap {
+	display : block;
+}
+#users_images {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	width: 150px;
+	height: 480px;
+}
+#center_center {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+#fun_images {
+	display: flex;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	width: 75%;
+	height: 110px;
+}
+#videoElement, #myCanvas {
+	width: 100%;
+}
+#buttons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+}
+#button_save {
+	display: none;
+}
+#button_remove {
+	display: block;
+}
+#button_try_again {
+	display: none;
+}
+.comment_box {
+	word-wrap: break-word;
 }

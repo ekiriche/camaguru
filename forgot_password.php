@@ -30,6 +30,7 @@
 			<input type="text" placeholder="Email..." name="email" value=""/>
 			<input type="submit" name="submit" value="send"/>
 		</form>
+		<br>
 	</div>
 	<div class="footer">
 		<div class="footerText">

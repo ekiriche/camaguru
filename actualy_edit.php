@@ -1,7 +1,16 @@
 <?php
 	include "config/setup.php";
 	session_start();
-	if(strlen($_POST["login"]) >= 4)
+	$xd = 1;
+	$xdd = 0;
+	$stm = $db->prepare("UPDATE users SET `notifications` = ? WHERE `login` = ?");
+	if ($_POST["notes"] == "OK")
+		$stm->bindParam(1, $xd);
+	else
+		$stm->bindParam(1, $xdd);
+	$stm->bindParam(2, $_SESSION["loged_in_user"]);
+	$stm->execute();
+	if(strlen($_POST["login"]) >= 4 && strlen($_POST["login"]) <= 16)
 	{
 		$flag = 0;
 		$query = $db->query("SELECT `login` FROM users");
@@ -48,7 +57,7 @@
 	}
 	else if ($_POST["email"] != "")
 		$_SESSION["changed_email"] = "error";
-	if (strlen($_POST["password"]) >= 6)
+	if (strlen($_POST["password"]) >= 6 && strlen($_POST["password"]) <= 16)
 	{
 		$stm = $db->prepare("UPDATE users SET `password` = ? WHERE `login` = ?");
 		$stm->bindParam(1, hash("sha256", $_POST["password"]));
