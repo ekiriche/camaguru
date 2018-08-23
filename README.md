@@ -15,3 +15,5 @@ At least with Firefox (>= 41) and Chrome (>= 46).
 ## Structure
 1. Server side - plain PHP.
 2. Client side - plain Javascript.
+
+## Final grade - 108/100
